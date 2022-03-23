@@ -1,88 +1,88 @@
 import directories from "./mock_data.js";
 
-// 每一行最小的高度
-let minRowHeight = 30
+// 每行高度
+let rowHeight = 50;
 
 // background
 const backgroundEl = document.getElementById('background');
-backgroundEl.style.height = directories.length * minRowHeight + 'px'
+backgroundEl.style.height = directories.length * rowHeight + 'px';
 
 // list
-const listEl = document.getElementById('list')
+const listEl = document.getElementById('list');
 
 // viewport
-const viewportEl = document.getElementById('viewport')
+const viewportEl = document.getElementById('viewport');
 
-// 找到第一個累加高度 > scrollTop 的 index
-const findIndexOverHeight = (listCount, scrollTop) => {
-  let currentHeight = 0
-  for (let i = 0; i < listCount; i++) {
-    currentHeight += minRowHeight
+// startIndex = 第一個累加高度 > scrollTop 的 index
+const findStartIndex = (listCount, scrollTop) => {
+  let heightSum = 0;
+  for (let index = 0; index < listCount; index++) {
+    heightSum += rowHeight;
 
-    if (currentHeight > scrollTop) {
-      return i
-    }
-  }
-
-  return list.length - 1
-}
+    if (heightSum > scrollTop) {
+      return index;
+    };
+  };
+};
 
 const getRenderData = () => {
-  // viewport 的高度
-  const viewportHeight = viewportEl.clientHeight
-  // 最多可放幾行
-  const maxRowCount = Math.ceil(viewportHeight / minRowHeight)
+  // viewport 高度
+  const viewportHeight = viewportEl.clientHeight;
+  // viewport 最多可放的行數
+  const maxRowCount = Math.ceil(viewportHeight / rowHeight);
   // 滾動距離
-  const currentScrollTop = viewportEl.scrollTop;
+  const distance = viewportEl.scrollTop;
   // startIndex
-  const startIndex = findIndexOverHeight(directories.length, currentScrollTop) ?? 0
+  const startIndex = findStartIndex(directories.length, distance);
   // endIndex
-  const endIndex = startIndex + maxRowCount 
+  const endIndex = startIndex + maxRowCount;
   // 要顯示在 viewport 中的資料
-  const listDataForRender = directories.slice(startIndex, endIndex)
+  const listDataForRender = directories.slice(startIndex, endIndex);
 
   return {
     listDataForRender,
-    currentScrollTop
-  }
-}
+    distance
+  };
+};
 
 const createdRow = (item) => {
-  const row = document.createElement('div')
+  const row = document.createElement('div');
   row.setAttribute("class", "row");
 
-  const keys = Object.keys(item)
+  const keys = Object.keys(item);
   for (const key of keys) {
-    const dom = document.createElement('div')
+    const dom = document.createElement('div');
     dom.setAttribute("class", key);
-    dom.innerHTML = item[key] ?? ''
-    row.appendChild(dom)
-  }
+    dom.innerHTML = item[key] ?? '';
+    row.appendChild(dom);
+  };
 
-  return row
-}
+  return row;
+};
 
 const render = (renderData, scrollTop) => {
+  // 使用 DocumentFragment 可以降低頁面 reflow 的次數
   const fragment = document.createDocumentFragment();
 
   for (const data of renderData) {
-    const row = createdRow(data)
-    fragment.appendChild(row)
-  }
+    const row = createdRow(data);
+    fragment.appendChild(row);
+  };
 
-  listEl.innerHTML = ""
+  listEl.innerHTML = "";
   listEl.appendChild(fragment);
 
-  listEl.style.transform = `translateY(${scrollTop}px)`
-}
+  // 透過 translateY 位移
+  listEl.style.transform = `translateY(${scrollTop}px)`;
+};
 
 viewportEl.addEventListener('scroll', () => {
-  const { listDataForRender, currentScrollTop } = getRenderData()
-  render(listDataForRender, currentScrollTop)
+  const { listDataForRender, distance } = getRenderData()
+  render(listDataForRender, distance)
 }, false)
 
 // INIT ********************************************************************
-const { listDataForRender, currentScrollTop } = getRenderData()
-render(listDataForRender, currentScrollTop)
+const { listDataForRender, distance } = getRenderData()
+render(listDataForRender, distance)
 // INIT ********************************************************************
 
