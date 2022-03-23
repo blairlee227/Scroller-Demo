@@ -1,13 +1,33 @@
+#scroller {
+  width: 1100px;
+  height: 1000px;
+  overflow: auto;
+  border:1px solid #CCCCCC;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 #container {
-  max-width: 960px;
+  max-width: 1080px;
   margin: 0 auto;
   display: flex;
-  gap: 15px;
+  gap: 10px;
   flex-wrap: wrap;
 }
+#observeTarget {
+  text-align: center;
+  font-size: 36px;
+  padding:5px 10px;
+  background-color: #69C4EC;
+  color: #fff;
+  width: 250px;
+  margin: 10px auto;
+  border-radius: 999px;
+}
 .box {
-  width: 310px;
-  height: 310px;
+  width: 350px;
+  height: 350px;
 }
 .box img {
   height: 100%;
