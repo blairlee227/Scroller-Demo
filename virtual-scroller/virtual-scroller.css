@@ -1,0 +1,41 @@
+#viewport {
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow-y: scroll;
+  border: 1px solid #e7e7e7;
+}
+#background {
+  height: 1000px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+
+#list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.row {
+  /* display: flex; */
+  background-color: #eeeeee;
+  height: 45px;
+  line-height: 45px;
+  align-items: center;
+  padding: 0 10px;
+  border-bottom: 2px solid #fff;
+}
+.name {
+  display: inline-block;
+  width: 200px;
+}
+.phone {
+  display: inline-block;
+}
