@@ -38,10 +38,12 @@ Lazy Loading 只會先載入部分資料，滾到底部後，再繼續載入更�
     <img width="484" alt="image" src="https://user-images.githubusercontent.com/31032281/159961739-1214ee5c-1383-4d4b-a497-9d4461a32afc.png">
   </div>
 
-實作可參考 lazy loading
+### 實作
+請參考 **[Lazy Loading](https://github.com/blairlee227/Scroller-Demo/tree/master/lazy-loading)**
 
 ### 優點
 只先載入部分資料，大幅提升頁面載入速度。
+
 ### 缺點
 資料量大時還是會出現大量的 DOM，載越多越不順暢。
 
