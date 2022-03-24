@@ -1,11 +1,11 @@
-import directories from "./mock_data.js";
+import directories from "../mock_data.js";
 
 // 每行高度
-let rowHeight = 50;
+let ROW_HEIGHT = 50;
 
 // background
 const backgroundEl = document.getElementById('background');
-backgroundEl.style.height = directories.length * rowHeight + 'px';
+backgroundEl.style.height = directories.length * ROW_HEIGHT + 'px';
 
 // list
 const listEl = document.getElementById('list');
@@ -17,7 +17,7 @@ const viewportEl = document.getElementById('viewport');
 const findStartIndex = (listCount, scrollTop) => {
   let heightSum = 0;
   for (let index = 0; index < listCount; index++) {
-    heightSum += rowHeight;
+    heightSum += ROW_HEIGHT;
 
     if (heightSum > scrollTop) {
       return index;
@@ -29,19 +29,20 @@ const getRenderData = () => {
   // viewport 高度
   const viewportHeight = viewportEl.clientHeight;
   // viewport 最多可放的行數
-  const maxRowCount = Math.ceil(viewportHeight / rowHeight);
+  const maxRowCount = Math.ceil(viewportHeight / ROW_HEIGHT);
   // 滾動距離
-  const distance = viewportEl.scrollTop;
+  const offset = viewportEl.scrollTop;
   // startIndex
-  const startIndex = findStartIndex(directories.length, distance);
+  const startIndex = findStartIndex(directories.length, offset);
   // endIndex
   const endIndex = startIndex + maxRowCount;
+
   // 要顯示在 viewport 中的資料
   const listDataForRender = directories.slice(startIndex, endIndex);
 
   return {
     listDataForRender,
-    distance
+    offset,
   };
 };
 
@@ -60,7 +61,7 @@ const createdRow = (item) => {
   return row;
 };
 
-const render = (renderData, scrollTop) => {
+const render = (renderData, offset) => {
   // 使用 DocumentFragment 可以降低頁面 reflow 的次數
   const fragment = document.createDocumentFragment();
 
@@ -73,16 +74,16 @@ const render = (renderData, scrollTop) => {
   listEl.appendChild(fragment);
 
   // 透過 translateY 位移
-  listEl.style.transform = `translateY(${scrollTop}px)`;
+  listEl.style.transform = `translateY(${offset}px)`;
 };
 
 viewportEl.addEventListener('scroll', () => {
-  const { listDataForRender, distance } = getRenderData()
-  render(listDataForRender, distance)
-}, false)
+  const { listDataForRender, offset } = getRenderData();
+  render(listDataForRender, offset);
+}, false);
 
 // INIT ********************************************************************
-const { listDataForRender, distance } = getRenderData()
-render(listDataForRender, distance)
+const { listDataForRender, offset } = getRenderData();
+render(listDataForRender, offset);
 // INIT ********************************************************************
 
