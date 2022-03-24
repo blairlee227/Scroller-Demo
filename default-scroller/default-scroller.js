@@ -1,4 +1,4 @@
-import directories from "./mock_data.js";
+import directories from "../mock_data.js";
 
 const createdRow = (item) => {
   const row = document.createElement('div');
