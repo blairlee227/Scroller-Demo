@@ -4,32 +4,32 @@ const fetchData = async () => {
     const data = await response.json();
     return data?.message;
   } catch (e) {
-    console.error(e)
-  }
-}
+    console.error(e);
+  };
+};
 
 const createdDom = (link) => {
-  const box = document.createElement('div')
+  const box = document.createElement('div');
   box.setAttribute("class", "box");
 
-  const img = document.createElement('img')
+  const img = document.createElement('img');
   img.setAttribute("src", link);
-  box.appendChild(img)
+  box.appendChild(img);
 
-  return box
-}
+  return box;
+};
 
-const containerEl = document.getElementById('container')
+const containerEl = document.getElementById('container');
 const render = (renderData) => {
   const fragment = document.createDocumentFragment();
 
   for (const data of renderData) {
-    const box = createdDom(data)
-    fragment.appendChild(box)
-  }
+    const box = createdDom(data);
+    fragment.appendChild(box);
+  };
 
   containerEl.appendChild(fragment);
-}
+};
 
 
 // Intersection Observer ****************************************************
