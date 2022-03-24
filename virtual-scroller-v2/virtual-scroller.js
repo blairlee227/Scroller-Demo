@@ -27,10 +27,6 @@ const findStartIndex = (listCount, scrollTop) => {
   };
 };
 
-const getPositiveOrZero = (amount) => {
-  return amount < 0 ? 0 : amount;
-};
-
 const getRenderData = () => {
   // viewport 高度
   const viewportHeight = viewportEl.clientHeight;
@@ -43,14 +39,15 @@ const getRenderData = () => {
   // endIndex
   const endIndex = startIndex + maxRowCount;
 
-  // startIndexWithBuffer
-  const startIndexWithBuffer = getPositiveOrZero(startIndex - BUFFER_ROWS);
+  // startIndexWithBuffer (<0 就取 0)
+  const startIndexWithBuffer = Math.max(startIndex - BUFFER_ROWS, 0);
   // endIndexWithBuffer
   const endIndexWithBuffer = endIndex + BUFFER_ROWS
 
   // 要顯示在 viewport 中的資料
   const listDataForRender = directories.slice(startIndexWithBuffer, endIndexWithBuffer);
-  const offset = getPositiveOrZero(scrollTop - BUFFER_ROWS * ROW_HEIGHT);
+  // 位移高度 (<0 就取 0)
+  const offset = Math.max(scrollTop - BUFFER_ROWS * ROW_HEIGHT, 0);
 
   return {
     listDataForRender,
