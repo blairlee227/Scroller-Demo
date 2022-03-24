@@ -35,9 +35,9 @@ const render = (renderData) => {
 // Intersection Observer ****************************************************
 const targetEl = document.getElementById('observeTarget');
 let intersectionObserver = new IntersectionObserver(async (entries) => {
-  // intersectionRatio: 目前元素可見的比例
-  // 0 代表不可見，1 代表可見
-  if (entries[0].intersectionRatio <= 0) return;
+  // intersectionRatio: target 元素可見的比例
+  // <=0 代表不可見，1 代表可見
+  if (entries[0].intersectionRatio <= 0) { return };
 
   let renderData = [];
   renderData = await fetchData();
