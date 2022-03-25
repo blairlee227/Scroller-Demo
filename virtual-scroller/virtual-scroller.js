@@ -1,7 +1,7 @@
 import directories from "../mock_data.js";
 
 // 每行高度
-let ROW_HEIGHT = 50;
+const ROW_HEIGHT = 50;
 
 // background
 const backgroundEl = document.getElementById('background');
@@ -31,14 +31,16 @@ const getRenderData = () => {
   // viewport 最多可放的行數
   const maxRowCount = Math.ceil(viewportHeight / ROW_HEIGHT);
   // 滾動距離
-  const offset = viewportEl.scrollTop;
+  const scrollTop = viewportEl.scrollTop;
   // startIndex
-  const startIndex = findStartIndex(directories.length, offset);
+  const startIndex = findStartIndex(directories.length, scrollTop);
   // endIndex
   const endIndex = startIndex + maxRowCount;
 
   // 要顯示在 viewport 中的資料
   const listDataForRender = directories.slice(startIndex, endIndex);
+  // 位移高度
+  const offset = scrollTop;
 
   return {
     listDataForRender,

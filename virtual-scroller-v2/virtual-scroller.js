@@ -1,7 +1,7 @@
 import directories from "../mock_data.js";
 
 // 每行高度
-let ROW_HEIGHT = 50;
+const ROW_HEIGHT = 50;
 // buffer 行數
 const BUFFER_ROWS = 3;
 
